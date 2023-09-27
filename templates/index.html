@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meus Favoritos</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Estilos para a grid de imagens */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* Ajuste o tamanho das colunas conforme necessário */
+            gap: 20px;
+        }
+
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer; /* Indica que as imagens são clicáveis */
+        }
+
+        /* Aumentar o tamanho das imagens */
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Meus Favoritos</h1>
+    
+    <form method="POST" action="/adicionar_link">
+        <label for="url">URL:</label>
+        <input type="text" name="url" required>
+        <button type="submit">Adicionar</button>
+    </form>
+    
+    <h2>Favoritos</h2>
+    
+    <!-- Grade de imagens -->
+    <div class="grid-container">
+        <!-- Os favoritos serão adicionados aqui dinamicamente com Jinja2 -->
+        {% for favorito in favoritos %}
+        <div class="grid-item">
+            <a href="{{ favorito[1] }}" target="_blank"><img src="data:image/png;base64,{{ favorito[2] }}" alt="Screenshot"></a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
